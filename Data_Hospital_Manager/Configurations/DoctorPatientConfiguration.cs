@@ -14,6 +14,11 @@ namespace Data_Hospital_Manager.Configurations
     {
         public void Configure(EntityTypeBuilder<DoctorPatient> builder)
         {
+            builder.HasKey(x => new { x.DoctorId, x.PatientId });
+            builder.HasOne(x=>x.Doctor).WithMany(x=>x.DoctorsPatients).HasForeignKey(x=>x.DoctorId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(x=>x.Patient).WithMany(x=>x.DoctorsPatients).HasForeignKey(x=>x.PatientId).OnDelete(DeleteBehavior.Cascade);
+
+
             builder.HasData(
     new DoctorPatient
     {

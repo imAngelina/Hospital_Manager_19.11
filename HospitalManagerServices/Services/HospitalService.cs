@@ -28,11 +28,18 @@ namespace HospitalManagerServices.Services
         public async Task DeleteHospitalAsync(int id)
         {
             var hospital = await new_context.Hospitals.FindAsync(id);
-            if(hospital != null)
+            if(hospital == null)
             {
-                hospital.IsDeleted = true;
-                await new_context.SaveChangesAsync();
+                return;
             }
+            bool hasdoctors = await new_context.Doctors.AnyAsync(x=>x.HospitalId==id);
+
+            if (hasdoctors)
+            {
+                throw new InvalidOperationException("cannot be deleted becaouse of existing doctor");
+            }
+            hospital.IsDeleted = true;
+            await new_context.SaveChangesAsync();
         }
 
         public async Task<List<Hospital>> GetAllHospitalsAsync(string? search, int? minBeds, string? sortOreder)
