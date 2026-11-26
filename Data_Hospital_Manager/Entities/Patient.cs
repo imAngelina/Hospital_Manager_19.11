@@ -28,5 +28,9 @@ namespace Data_Hospital_Manager.Entities
         [Phone]
         public string PhoneNumber { get; set; }
         public ICollection<DoctorPatient> DoctorsPatients { get; set; } = new List<DoctorPatient>();
+
+        public Guid? UserId { get; set; }
+
+        public User User { get; set; }
     }
 }

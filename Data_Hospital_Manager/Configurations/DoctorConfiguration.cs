@@ -20,6 +20,7 @@ namespace Data_Hospital_Manager.Configurations
             builder.Property(h => h.PhoneNumber).IsRequired();
             builder.Property(h => h.Email).IsRequired();
             builder.HasOne(x=>x.Hospital).WithMany(x=>x.Doctors).HasForeignKey(x=>x.HospitalId).OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(x => x.User).WithOne(x => x.Doctor).HasForeignKey<Doctor>(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
 
             builder.HasData(
      new Doctor

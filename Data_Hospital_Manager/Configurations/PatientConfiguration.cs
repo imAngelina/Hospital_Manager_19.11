@@ -18,6 +18,7 @@ namespace Data_Hospital_Manager.Configurations
             builder.Property(h => h.LastName).IsRequired().HasMaxLength(30);
             builder.Property(h => h.Email).IsRequired();
             builder.Property(h => h.PhoneNumber).IsRequired();
+            builder.HasOne(x => x.User).WithOne(x => x.Patient).HasForeignKey<Patient>(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
 
             builder.HasData(
     new Patient
